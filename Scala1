@@ -1,0 +1,81 @@
+var a:Int=1
+var `import`=1:Int
+a=10
+lazy val c=10
+c
+\\
+lazy val var_lazy ={println("Hello World");5}
+5
+
+
+
+def square(a:Int): Int ={
+  a*a
+}
+square(2)
+\\
+def square(a:Int) =a*a
+
+square(2)
+\\
+def square(a:Int): Int =a*a
+
+square(2)
+\\
+def square(a:Int): Int =a*a
+def multi(y:Int, takeFunction: Int => Int): Int ={
+  takeFunction(y)
+}
+multi(10,square)
+
+
+
+val a=100
+val b=90
+val c=true
+if(c) a else b
+
+
+//create RDD with parallelize method
+val data=List(1,2,3,4,5)
+val createRDD =sc.parallelize(data)
+createRDD.collect()
+createRDD.partitions.size
+//
+val RDDpartition =sc.parallelize(List(1,2,3,4,5,6),2)
+RDDpartition.partitions.size
+RDDpartition.count()
+
+//
+//create RDD from another RDD using map
+val newRDD=RDDpartition.map(x =>x*x*x)
+newRDD.collect()
+
+//filter out values from RDD
+newRDD.filter(x =>x%2==0).collect()
+
+//
+val nameRDD=sc.parallelize(List("joon","jin","hobi","tae","yoongi","jk","jimin"))
+nameRDD.collect()
+nameRDD.map(x =>x.split(",")).collect()     //one to one
+nameRDD.flatMap(x =>x.split(",")).collect()  //one to many
+
+//reduce by key
+al name1RDD=sc.parallelize(List("joon","jin","hobi","tae","yoongi","jk","jimin","tae","joon","tae","jk","jk","jin"))
+val keyRDD=name1RDD.map(x =>(x,1))
+keyRDD.collect()
+keyRDD.reduceByKey(_+_).collect()
+//
+val keyRDD=name1RDD.map(x =>(x,2))
+keyRDD.reduceByKey(_*_).collect()  
+                result-> Array[(String, Int)] = Array((tae,8), (jk,8), (jimin,2), (joon,4), (hobi,2), (jin,4), (yoongi,2))
+
+
+///FileStore/tables/ratings.csv
+
+//create RDD from csv file and count occurance of value for particular column
+val dataRDD=sc.textFile("/FileStore/tables/ratings.csv")
+val ratingRDD=dataRDD.map(x=>x.split(",")(2))   // get 2nd index column
+ratingRDD.countByValue()   
+
+    result ->scala.collection.Map[String,Long] = Map(4 -> 26818, 4.5 -> 8551, 0.5 -> 1370, 5 -> 13211, 3.5 -> 13136, 1.5 -> 1791, 1 -> 2811, 2 -> 7551, 2.5 -> 5550, 3 -> 20047)
