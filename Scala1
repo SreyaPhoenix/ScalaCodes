@@ -79,3 +79,69 @@ val ratingRDD=dataRDD.map(x=>x.split(",")(2))   // get 2nd index column
 ratingRDD.countByValue()   
 
     result ->scala.collection.Map[String,Long] = Map(4 -> 26818, 4.5 -> 8551, 0.5 -> 1370, 5 -> 13211, 3.5 -> 13136, 1.5 -> 1791, 1 -> 2811, 2 -> 7551, 2.5 -> 5550, 3 -> 20047)
+
+
+//set operations
+var s = Set(1,3,5,7)
+val fruit = Set("apples", "oranges", "pears")
+s.max
+s.min
+fruit.head
+fruit.tail
+fruit.isEmpty
+
+//
+rdd1 = sc.parallelize([1, 2, 3])
+rdd2 = sc.parallelize([4, 5, 6])
+rdd3 = sc.parallelize([7, 8, 9])
+rdd = sc.union([rdd1, rdd2, rdd3])
+rdd.collect()
+
+
+//
+val students_marks=spark.sparkContext.textFile(“/FileStore/tables/student_marks.csv”)
+val students_rest_marks=spark.sparkContext.textFile(“/FileStore/tables/student_rest_marks.csv”)
+
+val students_union=students_marks.union(students_rest_marks)   //rdd union
+
+val students_name=students_marks.map(x=>(x.split(“,”)(0)))
+val student_distinct=students_name.distinct()
+student_distinct.collect().foreach(println)      //find distinct student names
+
+val student_intersect=students_union.intersection(student_rest) //rdd intersection
+student_intersect.collect().foreach(println)
+
+
+
+
+
+
+//counting op
+val data=List("joon","jin","hobi","tae","yoongi","jk","jimin","tae","joon","tae","jk","jk","jin")
+val datardd=sc.parallelize(data)
+datardd.countByValue()
+
+//bi fucntion
+val data2=sc.parallelize(List(1,2,3,4,5))
+val productRDD = data2.reduce( (x,y) => x*y)
+productRDD : Int =120
+
+
+//find sum of prime numbers in RDD
+
+val dataRDD=sc.textFile("/FileStore/tables/numberData.csv")
+val header=dataRDD.first
+val numbersRDD=dataRDD.filter(row => row !=header) 
+                 .map(_.toInt)
+def isprime(n:Int): Boolean={
+  if(n<=1)
+    false
+  else if (n == 2)
+      true
+  else
+      !(2 to (n-1)).exists(x => n % x == 0)
+}
+val primeRDD= numbersRDD.filter( x => isprime(x)==true)
+val sum = primeRDD.reduce( (x,y) => x+y)
+
+sum: Int = 40313
