@@ -145,3 +145,22 @@ val primeRDD= numbersRDD.filter( x => isprime(x)==true)
 val sum = primeRDD.reduce( (x,y) => x+y)
 
 sum: Int = 40313
+
+
+//create map from table
+
+roomRDD=dataRDD.map(x =>(x.split(",")(3), x.split(",")(2)))
+
+
+//find average room size using mapping
+
+val dataRDD=sc.textFile("/FileStore/tables/Property_data.csv")
+val header=dataRDD.first
+val removedHeader= dataRDD.filter(row => row !=header) 
+
+val roomRDD=removedHeader.map(x =>(x.split(",")(3).toInt, (1, x.split(",")(2).toDouble)))
+val reducedRDD=roomRDD.reduceByKey((x,y)=>(x._1+y._1 , x._2+y._2))
+val finalRDD=reducedRDD.mapValues(data => data._2 / data._1)
+for((bedroom,avg) <- finalRDD.collect()) println(bedroom+","+avg)
+finalRDD.saveAsTextFile("PropertyFinal.csv")
+
