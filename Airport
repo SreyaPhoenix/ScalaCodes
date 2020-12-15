@@ -1,0 +1,52 @@
+val data=sc.textFile("/FileStore/tables/airports-1.text")
+data.collect()
+command-4209650493362988:1: error: value textfile is not a member of org.apache.spark.SparkContext
+val data=sc.textfile("/FileStore/tables/airports-1.text")
+            ^
+val data=sc.textFile("/FileStore/tables/airports-1.text")
+data.collect()
+data.filter(e=>e.country=="United states")
+command-4209650493362989:3: error: value country is not a member of String
+data.filter(e=>e.country=="United states")
+                 ^
+// /FileStore/tables/airports.csv
+ 
+val airData=sc.textfile("/FileStore/tables/airports-1.text")
+val LocatedData=airData.filter(line =>{
+  (line.split(",")(6) > "\"40\"") && (line.split(",")(3) contains "Island")
+})
+LocatedData.collect()
+command-4209650493362990:3: error: value textfile is not a member of org.apache.spark.SparkContext
+val airData=sc.textfile("/FileStore/tables/airports-1.text")
+               ^
+val airData=sc.textFile("/FileStore/tables/airports-1.text")
+val LocatedData=airData.filter(line =>{
+  (line.split(",")(6) > "\"40\"") && (line.split(",")(3) contains "Island")
+})
+LocatedData.collect()|
+command-25841723910824:5: error: value | is not a member of Array[String]
+LocatedData.collect()|
+                     ^
+val airData=sc.textFile("/FileStore/tables/airports-1.text")
+val LocatedData=airData.filter(line =>{
+  (line.split(",")(6) > "\"40\"") && (line.split(",")(3) contains "Island")
+})
+LocatedData.collect()
+
+airData
+res3: org.apache.spark.rdd.RDD[String] = /FileStore/tables/airports-1.text MapPartitionsRDD[3] at textFile at command-25841723910825:1
+val newtask=airData.map(x=> (x.split(",")(0),x.split(",")(11)))
+newtask.take(3)
+newtask: org.apache.spark.rdd.RDD[(String, String)] = MapPartitionsRDD[73] at map at command-1736316400535652:1
+res4: Array[(String, String)] = Array((1,"Pacific/Port_Moresby"), (2,"Pacific/Port_Moresby"), (3,"Pacific/Port_Moresby"))
+val task1=airData.map(x=> (x.split(",")(1),x.split(",")(11).toLowerCase))
+task1.take(3)
+command-1736316400535653:1: error: not found: value airData
+val task1=airData.map(x=> (x.split(",")(1),x.split(",")(11).toLowerCase))
+          ^
+val airData=sc.textFile("/FileStore/tables/airports-1.text")
+airData: org.apache.spark.rdd.RDD[String] = /FileStore/tables/airports-1.text MapPartitionsRDD[1] at textFile at command-3142957187131991:1
+val task1=airData.map(x=> (x.split(",")(1),x.split(",")(11).toLowerCase))
+task1.take(3)
+task1: org.apache.spark.rdd.RDD[(String, String)] = MapPartitionsRDD[2] at map at command-1452263799886255:1
+res1: Array[(String, String)] = Array(("Goroka","pacific/port_moresby"), ("Madang","pacific/port_moresby"), ("Mount Hagen","pacific/port_moresby"))
