@@ -1,0 +1,9 @@
+//friends task
+val data=sc.textFile("/FileStore/tables/FriendsData-2.csv")
+val header=data.first
+val data1=data.filter(line => line!=header)
+val ageRDD=data2.map(x.split(",")(2).toInt,x.split(",")(3).toDouble)))
+val reduceRDD=ageRDD.reduceByKey((x,y) =>(x._1+y._1, x._2+y._2))
+
+val resultRDD=reduceRDD.mapValues(z=> z._2/z._1)
+resultRDD.collect()
