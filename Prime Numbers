@@ -1,0 +1,18 @@
+//find sum of prime numbers in RDD
+
+val dataRDD=sc.textFile("/FileStore/tables/numberData.csv")
+val header=dataRDD.first
+val numbersRDD=dataRDD.filter(row => row !=header) 
+                 .map(_.toInt)
+def isprime(n:Int): Boolean={
+  if(n<=1)
+    false
+  else if (n == 2)
+      true
+  else
+      !(2 to (n-1)).exists(x => n % x == 0)
+}
+val primeRDD= numbersRDD.filter( x => isprime(x)==true)
+val sum = primeRDD.reduce( (x,y) => x+y)
+
+sum: Int = 40313
