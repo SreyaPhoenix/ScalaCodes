@@ -221,3 +221,17 @@ fact.show()
 +---+---+---+---+----+------+---------+----+---+
 only showing top 20 rows
 
+
+//joining fact and dimension tables to get report
+
+
+from pyspark.sql.functions import min,avg,sum
+dimDev=spark.read.csv("/FileStore/tables/dim_developer.csv", header=False, inferSchema=True)
+dimDev=dimDev.withColumnRenamed("_c5","dev_id")
+dimDev=dimDev.withColumnRenamed("_c0","developer name")
+fact=spark.read.csv("/FileStore/tables/fact_realestate.csv", header=False, inferSchema=True)
+fact=fact.withColumnRenamed("_c3","dev_id")
+fact=fact.withColumnRenamed("_c6","purch_amt")
+fact=fact.withColumnRenamed("_c7","area_purch")
+newDF=dimDev.join(fact, on='dev_id')
+newDF.groupBy('developer name').avg("purch_amt").show()
