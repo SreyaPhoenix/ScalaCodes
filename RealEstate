@@ -1,0 +1,223 @@
+realEstate=spark.read.csv("/FileStore/tables/Real_Estate_Src1.csv", header=True, inferSchema=True)
+realEstate.show()
+ 
++----------------------+--------------+-------+-------------+-------------+--------------------+--------------------+--------------------+-------------------+--------------+------+-------------------+----------------+----------+---------------+--------------+
+|Development Start Date|Purchased Date|   City|     Locality|Property Type|      Developer Name|Year Of Esablishment|                 CEO|Number Of Employees|Service_Amount|Rating|      Investor Name|  CITY_Investors|sq-ft_cost|PURCHASE_AMOUNT|AREA_PURCHASED|
++----------------------+--------------+-------+-------------+-------------+--------------------+--------------------+--------------------+-------------------+--------------+------+-------------------+----------------+----------+---------------+--------------+
+|             21-Mar-11|      9-Apr-11|KOLKATA|  New Alipore|   Commercial|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|     Forrest Hoeger|          mumbai|      5136|    1.2338521E7|          8284|
+|              2-Mar-11|     21-Mar-11|KOLKATA|    Salt Lake|   Commercial|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|  Litzy Gleason III|           delhi|      4545|    1.2463481E7|          9456|
+|              1-Mar-11|     20-Mar-11|KOLKATA|      Dum Dum|   Commercial|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|      Gracie Fisher|       bangalore|      2595|      5446957.0|          7238|
+|             13-Mar-11|      1-Apr-11|KOLKATA|   Tollygunge|   Commercial|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|        Mia Collier|       hyderabad|      2937|      5388044.0|          6326|
+|             22-Mar-11|     10-Apr-11|KOLKATA|   Ballygunge|   Commercial|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|      Hobart Hirthe|       ahmedabad|      7013|    1.3744218E7|          6758|
+|             30-Mar-11|     18-Apr-11|KOLKATA|  New Alipore|  Residential|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E| Liliane Friesen IV|         chennai|      4852|      7463152.0|          5304|
+|             21-May-11|      9-Jun-11|KOLKATA|    Salt Lake|  Residential|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|          Franz Von|         kolkata|      5372|    1.5229835E7|          9776|
+|             20-Jun-11|      9-Jul-11|KOLKATA|      Dum Dum|  Residential|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|     Alexys Lockman|           surat|      3184|      6039698.0|          6541|
+|             22-Mar-11|     10-Apr-11|KOLKATA|   Tollygunge|  Residential|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E| Dr. Zetta Schaefer|            pune|      2701|      5058487.0|          6458|
+|             17-Feb-11|      8-Mar-11|KOLKATA|   Ballygunge|  Residential|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|     Brandy Bartell|          jaipur|      5824|    1.5075657E7|          8926|
+|             28-May-11|     16-Jun-11|   PUNE|        Aundh|   Commercial|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|  Margret Bahringer|         lucknow|      5863|    1.0405652E7|          6120|
+|              9-Oct-12|     28-Oct-12|   PUNE|Kalyani Nagar|   Commercial|     Larsen & Toubro|                1938|      K.Venkataraman|               6800|          0.29|     E|        Shawn Dicki|          kanpur|      6418|    1.5427653E7|          8289|
+|             11-Sep-12|     30-Sep-12|   PUNE|    Hinjewadi|   Commercial|           GMR Group|                1978|Gandhi Mallikarju...|               1550|           0.8|     D|       Lukas Nienow|          nagpur|      4429|    1.9884438E7|          5612|
+|             16-Dec-12|      4-Jan-13|   PUNE|Koregaon Park|   Commercial|        Arun Excello|                1987|            Sriram P|               1255|          0.15|     E|     Sandy Lindgren|          indore|      9306|      7676054.0|          5499|
+|             12-Oct-13|     31-Oct-13|   PUNE|   Magarpatta|   Commercial|            Manjeera|                1985|            Yoganand|                450|          0.32|     B|    Llewellyn Crona|           thane|      7066|    1.5022881E7|          6644|
+|             26-Apr-11|     15-May-11|   PUNE|        Aundh|  Residential|     Amrapalli Group|                1973|Dr.Anil Kumar Sharma|               1023|          0.51|     A|Sasha Runolfsdottir|          bhopal|      6669|    2.9301252E7|          8615|
+|              8-Jun-11|     27-Jun-11|   PUNE|Kalyani Nagar|  Residential|Hiranandhani Deve...|                1980|        Dr.RL Bhatia|               1600|          0.04|     C|      Jayne Friesen|   vishakapatnam|      7351|      2537859.0|          8631|
+|             29-Jun-11|     18-Jul-11|   PUNE|    Hinjewadi|  Residential|       Jain Builders|                2005|   Mr.Sandheep Mehta|                775|          0.77|     E|    Madonna Stanton|pimpri-chinchwad|      3518|    2.1735893E7|          8024|
+|             21-Mar-11|      9-Apr-11|   PUNE|Koregaon Park|  Residential|        Mantri Group|                1999|       Sushil Mantri|               5464|          0.94|     D|  Norberto Connelly|           patna|      7025|    5.1051659E7|          7731|
+|             29-May-13|     17-Jun-13|   PUNE|   Magarpatta|  Residential|                 DLF|                1946|           T.C.Goyal|               7542|          0.29|     E|      Nicklaus Lowe|         vadodra|      6472|    1.3466614E7|          7175|
++----------------------+--------------+-------+-------------+-------------+--------------------+--------------------+--------------------+-------------------+--------------+------+-------------------+----------------+----------+---------------+--------------+
+only showing top 20 rows
+
+realEstate.select("City","sq-ft_cost").show()
++-------+----------+
+|   City|sq-ft_cost|
++-------+----------+
+|KOLKATA|      5136|
+|KOLKATA|      4545|
+|KOLKATA|      2595|
+|KOLKATA|      2937|
+|KOLKATA|      7013|
+|KOLKATA|      4852|
+|KOLKATA|      5372|
+|KOLKATA|      3184|
+|KOLKATA|      2701|
+|KOLKATA|      5824|
+|   PUNE|      5863|
+|   PUNE|      6418|
+|   PUNE|      4429|
+|   PUNE|      9306|
+|   PUNE|      7066|
+|   PUNE|      6669|
+|   PUNE|      7351|
+|   PUNE|      3518|
+|   PUNE|      7025|
+|   PUNE|      6472|
++-------+----------+
+only showing top 20 rows
+
+realEstate.select("Developer Name","Rating").show()
+ 
+ 
+ 
++--------------------+------+
+|      Developer Name|Rating|
++--------------------+------+
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|     Larsen & Toubro|     E|
+|           GMR Group|     D|
+|        Arun Excello|     E|
+|            Manjeera|     B|
+|     Amrapalli Group|     A|
+|Hiranandhani Deve...|     C|
+|       Jain Builders|     E|
+|        Mantri Group|     D|
+|                 DLF|     E|
++--------------------+------+
+only showing top 20 rows
+
+realEstate.groupBy('City').min("sq-ft_cost").show()
+ 
+ 
++---------+---------------+
+|     City|min(sq-ft_cost)|
++---------+---------------+
+|  KOLKATA|           2593|
+|  Chennai|           2887|
+|    DELHI|           2100|
+|BANGALORE|           3078|
+|HYDERABAD|           1987|
+|     PUNE|           2586|
+|   MUMBAI|           3400|
++---------+---------------+
+
+from pyspark.sql.functions import min,avg,sum
+realEstate.groupBy('Developer Name').sum("PURCHASE_AMOUNT").show()
+ 
+ 
++--------------------+--------------------+
+|      Developer Name|sum(PURCHASE_AMOUNT)|
++--------------------+--------------------+
+|            J Murphy|       1.966939798E9|
+|Brookfield Multiplex|        6.02483049E8|
+|       Ogilvie Group|       3.075655957E9|
+|     Amrapalli Group|       4.034184372E9|
+|                Sisk|        2.58042651E8|
+|      Laing O Rourke|       1.224162435E9|
+|               Mitie|         5.7264196E8|
+|McLaughlin & Harvey |       1.070024453E9|
+|     Larsen & Toubro|       4.942173881E9|
+|        Pyeroy Group|        6.86257667E8|
+|    Robertson Group |        3.16443046E8|
+|     Enserve (Spice)|       1.075335878E9|
+|           GMR Group|       4.197998571E9|
+|         Byrne Group|       1.077784799E9|
+|   Eric Wright Group|       2.239946482E9|
+|          Masterson |         6.8735401E7|
+|Bullock Construction|       1.107362158E9|
+|             Seddon |        2.35965759E8|
+|              Miller|       3.779958961E9|
+|             Mclaren|       1.131364993E9|
++--------------------+--------------------+
+only showing top 20 rows
+
+from pyspark.sql.functions import min,avg,format_number
+realEstate.select(  format_number(avg(realEstate['Service_Amount']),2).alias("average service amount") ).show()
+ 
++----------------------+
+|average service amount|
++----------------------+
+|                  0.58|
++----------------------+
+
+from pyspark.sql.functions import min,avg,format_number
+realEstate.select(  format_number(avg(realEstate['sq-ft_cost']),2).alias("average square feet cost") ).show()
+ 
++------------------------+
+|average square feet cost|
++------------------------+
+|               15,171.22|
++------------------------+
+
+from pyspark.sql.functions import min,avg,sum
+realEstate.groupBy('City').avg("sq-ft_cost").show()
++---------+------------------+
+|     City|   avg(sq-ft_cost)|
++---------+------------------+
+|  KOLKATA| 5674.294117647059|
+|  Chennai|11898.326120556414|
+|    DELHI| 23586.30439814815|
+|BANGALORE|17612.284427284427|
+|HYDERABAD| 14951.25909090909|
+|     PUNE| 6899.216346153846|
+|   MUMBAI|18088.933823529413|
++---------+------------------+
+
+dimDev=spark.read.csv("/FileStore/tables/dim_developer.csv", header=False, inferSchema=True)
+dimDev=dimDev.withColumnRenamed("_c5","dim_id")
+dimDev=dimDev.withColumnRenamed("_c0","developer name")
+dimDev.show()
+ 
++--------------------+--------------------+------+----+---+------+
+|      developer name|                 _c1|   _c2| _c3|_c4|dim_id|
++--------------------+--------------------+------+----+---+------+
+|      Aaryan Estates|         Aryan Patel|  5336|0.21|  B|     1|
+| Adithya Birla Group|Dr.Santrupt B. Misra|136000|0.75|  E|     2|
+|             Amey UK|    Jonathon Sanford|  1323| 0.6|  D|     3|
+|     Amrapalli Group|Dr.Anil Kumar Sharma|  1023|0.51|  A|     4|
+|            Ardmore |         Johan Hayes|  1605|0.86|  E|     5|
+|        Arun Excello|            Sriram P|  1255|0.15|  E|     6|
+|BAM Construction/...|          Deon Emard|  2625|0.02|  D|     7|
+|               Barr |   Rosalinda Pacocha|  2233|0.52|  B|     8|
+|             Bechtel|   Rafaela Hintz DVM|  1909|0.28|  E|     9|
+|Bouygues & Subsid...|       Viola Murazik|  3761|0.92|  E|    10|
+|  Bowmer & Kirkland |        Effie Legros|  1865|0.25|  C|    11|
+|         Brett Group|       Naomie Daniel|  1452|0.21|  C|    12|
+|Brookfield Multiplex|        Athena Morar|  9625|0.21|  A|    13|
+|         Buckingham |        Roger Rempel|  2994|0.69|  E|    14|
+|Bullock Construction|       Chaya Langosh|  6738|0.42|  D|    15|
+|         Byrne Group|       Dante Stanton|  7750|0.45|  C|    16|
+|        Carey Group |        Melvina Veum|  2757|0.88|  D|    17|
+|          Carillion |          Arlo Moore|  8282|0.16|  C|    18|
+|City Building (Gl...|   Casimir Ritchie V|  1315| 0.5|  C|    19|
+|              Clancy|       Alvera Murray|  9782|0.53|  A|    20|
++--------------------+--------------------+------+----+---+------+
+only showing top 20 rows
+
+ 
+fact=spark.read.csv("/FileStore/tables/fact_realestate.csv", header=False, inferSchema=True)
+fact.show()
++---+---+---+---+----+------+---------+----+---+
+|_c0|_c1|_c2|_c3| _c4|   _c5|      _c6| _c7|_c8|
++---+---+---+---+----+------+---------+----+---+
+|624|564| 65| 60|3967|  3997| 28535223|8499|  1|
+|625|565| 68| 17|1862| 19927|116051660|6618|  2|
+|626|566| 13| 37| 200| 13640|  5628546|5895|  3|
+|627|567| 36| 55|4394|  6704| 14583345|7769|  4|
+|628|568| 21|  9|3024|  5151|  9507510|6592|  5|
+|629|569| 20| 29|4958|  7607| 24424556|8027|  6|
+|630|570| 27|  8| 726|107933|524265120|9341|  7|
+|631|571| 25| 77|3518|  6822| 38431055|6870|  8|
+|632|572| 35| 75|2198| 10353| 23863561|8537|  9|
+|633|573| 22| 24|4818|  4818| 27497097|9356| 10|
+|634|574| 19| 65|3885|  5977| 33219449|7828| 11|
+|635|575| 28|104|3647| 12455| 28216927|6123| 12|
+|636|576| 26| 23| 494| 11784| 72304739|8522| 13|
+|637|577| 44| 19|1575|  2354|  6712431|5703| 14|
+|638|578| 34| 68|3238|  3377| 20004369|9711| 15|
+|639|579|  9| 83| 778| 36014|216854700|8602| 16|
+|640|580| 30| 28| 998|  4828|  7915361|7807| 17|
+|641|581| 38| 14|3634|  2650| 10444392|5712| 18|
+|642|582| 43| 93|3546|  2700|  1749168|8098| 19|
+|643|583| 33| 95|2367| 23075|116010947|6794| 20|
++---+---+---+---+----+------+---------+----+---+
+only showing top 20 rows
+
